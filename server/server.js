@@ -13,6 +13,9 @@ var app = express();
 app.use(cors());
 app.use(express.static(path.resolve(__dirname, "../public")));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/api/rentals", (req, res) => {
   const id = parseInt(req.query.id);
   Rental.findOne({ _id: id })
@@ -26,10 +29,6 @@ app.get("/api/rentals", (req, res) => {
 
 app.delete("/api/rentals", (req, res) => {
   const id = parseInt(req.query.id);
-
-  // let message = 'DELETE request acknowledged';
-  // console.log(message);
-  // res.status(200).send(message);
 
   Rental.deleteOne({ _id: id })
     .then(result => {
@@ -48,19 +47,21 @@ app.delete("/api/rentals", (req, res) => {
 });
 
 app.post("/api/rentals", (req, res) => {
-  const id = parseInt(req.query.id);
+  let newRental = req.body;
 
-  let message = 'POST request acknowledged';
-  console.log(message);
-  res.status(200).send(message);
-
-  // Rental.({ _id: id })
-  //   .then(result => {
-  //     res.json(result);
-  //   })
-  //   .catch(err => {
-  //     res.status(400).send(err);
-  //   });
+  Rental.find().countDocuments({})
+    .then(count => {
+      newRental._id = count + 1;
+      Rental.create(newRental)
+    })
+    .then(results => {
+      console.log('new rental added to db', results);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send(err);
+    });
 });
 
 app.put("/api/rentals", (req, res) => {
