@@ -24,6 +24,54 @@ app.get("/api/rentals", (req, res) => {
     });
 });
 
+app.delete("/api/rentals", (req, res) => {
+  const id = parseInt(req.query.id);
+
+  let message = 'DELETE request acknowledged';
+  console.log(message);
+  res.status(200).send(message);
+
+  // Rental.({ _id: id })
+  //   .then(result => {
+  //     res.json(result);
+  //   })
+  //   .catch(err => {
+  //     res.status(400).send(err);
+  //   });
+});
+
+app.post("/api/rentals", (req, res) => {
+  const id = parseInt(req.query.id);
+
+  let message = 'POST request acknowledged';
+  console.log(message);
+  res.status(200).send(message);
+
+  // Rental.({ _id: id })
+  //   .then(result => {
+  //     res.json(result);
+  //   })
+  //   .catch(err => {
+  //     res.status(400).send(err);
+  //   });
+});
+
+app.put("/api/rentals", (req, res) => {
+  const id = parseInt(req.query.id);
+
+  let message = 'PUT request acknowledged';
+  console.log(message);
+  res.status(200).send(message);
+
+  // Rental.({ _id: id })
+  //   .then(result => {
+  //     res.json(result);
+  //   })
+  //   .catch(err => {
+  //     res.status(400).send(err);
+  //   });
+});
+
 app.get("/app.js", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../public/bundle.js"));
 });
