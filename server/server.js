@@ -49,9 +49,11 @@ app.delete("/api/rentals", (req, res) => {
 app.post("/api/rentals", (req, res) => {
   let newRental = req.body;
 
-  Rental.find().countDocuments({})
-    .then(count => {
-      newRental._id = count + 1;
+  Rental.find({})
+    .sort({_id: -1})
+    .limit(1)
+    .then(lastRental => {
+      newRental._id = lastRental[0]._id + 1;
       Rental.create(newRental)
     })
     .then(results => {
