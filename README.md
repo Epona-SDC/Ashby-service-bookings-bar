@@ -17,7 +17,25 @@
 
 ## Usage
 
-> Some usage instructions
+> Server API: /api/rentals
+> Supports GET and DELETE with an id paramater, ?id={number}
+> To POST header should have Content-Type header of applicatio/json and no parameters. An id will be generated, but boody must contain all other fields in JSON format.
+> PUT requires id parameter and same Content-Type header of applicatiob/json. The body must contain all updates to be made in JSON format.
+
+> Current schema:
+  _id: Number,
+  price: Number,
+  max_guests: Number,
+  reviews: {
+    numReviews: Number,
+    avgStars: Number
+  },
+  fees: {
+    cleaning_fee: Number,
+    service_fee: Number,
+    occupancy_fee: Number
+  },
+  availability: array of strings of mm/mm/yyyy dates
 
 ## Requirements
 
