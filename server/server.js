@@ -27,17 +27,24 @@ app.get("/api/rentals", (req, res) => {
 app.delete("/api/rentals", (req, res) => {
   const id = parseInt(req.query.id);
 
-  let message = 'DELETE request acknowledged';
-  console.log(message);
-  res.status(200).send(message);
+  // let message = 'DELETE request acknowledged';
+  // console.log(message);
+  // res.status(200).send(message);
 
-  // Rental.({ _id: id })
-  //   .then(result => {
-  //     res.json(result);
-  //   })
-  //   .catch(err => {
-  //     res.status(400).send(err);
-  //   });
+  Rental.deleteOne({ _id: id })
+    .then(result => {
+      let message;
+      if (result.deletedCount === 0) {
+        message = `No rental id ${id} to delete`;
+      } else {
+        message = `Rental id ${id} deleted`
+      }
+      res.status(200).send(message);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send(`Unable to delete rentals id ${id}`);
+    });
 });
 
 app.post("/api/rentals", (req, res) => {
@@ -72,9 +79,9 @@ app.put("/api/rentals", (req, res) => {
   //   });
 });
 
-app.get("/app.js", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../public/bundle.js"));
-});
+// app.get("/app.js", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../public/bundle.js"));
+// });
 
 app.listen(3003, err => {
   console.log("Listening on port 3003...");
