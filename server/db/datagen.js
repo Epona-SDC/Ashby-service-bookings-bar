@@ -81,7 +81,7 @@ const getDateForId = (dateId) => {
   let mm;
   let dd;
 
-  if ((dateId < 91) || (dateId >182)) {
+  if ((dateId < 91) || (dateId > 182)) {
     return 'invalid dateID';
   }
   if (dateId <= 120) {
@@ -98,10 +98,13 @@ const getDateForId = (dateId) => {
 }
 
 const generateDates = () => {
-  // use dateId 30 times
-  // call isDateAvailable, if true
-    // call getDateForId and add string to results array
-  // return array of dates
+  let dates = [];
+  for (let i = 0; i < 91; i += 1) {
+    let dateId = dateIdStart + i;
+    let date = getDateForId(dateId);
+    dates.push({dateId, date})
+  }
+  return dates;
 }
 
 
@@ -128,6 +131,6 @@ const generateOneSetDateIds = () => {
 // exports.generateDates = generateDates;
 // exports.generateOneSetDateIds = generateOneSetDateIds;
 
-let test = getDateForId(152);
+let test = generateDates();
 console.log(test);
 
