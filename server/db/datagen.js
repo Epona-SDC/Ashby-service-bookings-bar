@@ -78,7 +78,15 @@ const generateRentalCSVLine = () => {
     serviceFee,
     occupancyFee,
   } = rental;
-  const line = `${_id}, ${price}, ${maxGuests}, ${numReviews}, ${avgStars}, ${cleaningFee}, ${serviceFee}, ${occupancyFee}\n`;
+  const line = `
+    ${_id},
+    ${price},
+    ${maxGuests},
+    ${numReviews},
+    ${avgStars},
+    ${cleaningFee},
+    ${serviceFee},
+    ${occupancyFee}\n`;
   return line;
 }
 
@@ -128,6 +136,17 @@ const generateDates = () => {
   return dates;
 }
 
+const generateCSVDates = () => {
+  let dates = [];
+  let csvLines = 'id,date\n';
+  for (let i = 0; i < 91; i += 1) {
+    let dateId = dateIdStart + i;
+    let date = getDateForId(dateId);
+    csvLines += `${dateId},${date}\n`;
+  }
+  return csvLines;
+}
+
 
 // *************************  rentals_dates Table  *************************
 
@@ -171,3 +190,4 @@ exports.generateDates = generateDates;
 exports.generateOneSetDateIds = generateOneSetDateIds;
 exports.getRentalHeader = getRentalHeader;
 exports.generateRentalCSVLine = generateRentalCSVLine;
+exports.generateCSVDates = generateCSVDates;

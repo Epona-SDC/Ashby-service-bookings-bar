@@ -2,11 +2,11 @@ fs = require('fs');
 dataGen = require('./dataGen.js');
 
 const rentalFileName = 'rentals.csv';
+const datesFileName = 'dates.csv';
 
 
 
-
-const writeRentals = () => {
+const writeRentalsCSV = () => {
   const rentalFile = fs.openSync(rentalFileName, 'w');
   fs.writeSync(rentalFile, dataGen.getRentalHeader());
   for (let i = 0; i < 10000000; i += 1) {
@@ -16,10 +16,15 @@ const writeRentals = () => {
   console.log('done');
 }
 
+const writeDatesCSV = () => {
+  const datesFile = fs.openSync(datesFileName, 'w');
+  fs.writeSync(datesFile, dataGen.generateCSVDates());
+  fs.closeSync(datesFile);
+  console.log('done');
+}
 
 
 
-writeRentals();
 
 
 
