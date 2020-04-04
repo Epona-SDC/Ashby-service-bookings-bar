@@ -37,6 +37,8 @@
   },
   availability: array of strings of mm/mm/yyyy dates
 
+  > npm run makeCSVData to generate CSV data files
+
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).

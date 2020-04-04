@@ -180,6 +180,25 @@ const generateNumSetsDateIds = (num) => {
   return results;
 }
 
+const generateRentalsDatesCSVHeader = () => {
+  return 'rentals_id,dates_id\n';
+}
+
+const startRentalsDatesCSV = () => {
+  resetRentalId();
+  return generateRentalsDatesCSVHeader();
+}
+
+const generateJoinCSVLinesForOneRental = () => {
+  let line = '';
+  const dateIds = generateOneSetDateIds();
+  for (let i = 0; i < dateIds.length; i += 1) {
+    line += `${rentalId},${dateIds[i]}\n`;
+  }
+  rentalId += 1;
+  return line;
+}
+
 // *************************  eports  *************************
 
 exports.resetRentalId = resetRentalId;
@@ -191,3 +210,5 @@ exports.generateOneSetDateIds = generateOneSetDateIds;
 exports.getRentalHeader = getRentalHeader;
 exports.generateRentalCSVLine = generateRentalCSVLine;
 exports.generateCSVDates = generateCSVDates;
+exports.startRentalsDatesCSV = startRentalsDatesCSV;
+exports.generateJoinCSVLinesForOneRental = generateJoinCSVLinesForOneRental;

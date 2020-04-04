@@ -10,7 +10,8 @@
     "dev": "webpack-dev-server --open --mode development --content-base public/",
     "build": "webpack --mode production",
     "test": "jest -c=jest.config.js",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "makeCSVData": "node server/db/dataToFile.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
