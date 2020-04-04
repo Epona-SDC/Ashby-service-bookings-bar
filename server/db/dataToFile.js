@@ -9,7 +9,7 @@ const rentalFileName = 'rentals.csv';
 const writeRentals = () => {
   const rentalFile = fs.openSync(rentalFileName, 'w');
   fs.writeSync(rentalFile, dataGen.getRentalHeader());
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 10000000; i += 1) {
     fs.writeSync(rentalFile, dataGen.generateRentalCSVLine());
   }
   fs.closeSync(rentalFile);
