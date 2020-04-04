@@ -111,26 +111,40 @@ const generateDates = () => {
 // *************************  rentals_dates Table  *************************
 
 const isDateAvailable = () => {
-  // randomly return true or false
+  if(Math.floor(Math.random() * 2)) {
+    return true;
+  }
+  return false;
 }
 
 const generateOneSetDateIds = () => {
+  const results = [];
   // goes through all 91 days
-    // if isDateAvailable
+  for (let i = dateIdStart; i <= dateIdEnd; i += 1) {
+    if (isDateAvailable()) {
       // add to results list
-  // return results list
+      results.push(i);
+    }
+  }
+  return results;
 }
 
+const generateNumSetsDateIds = (num) => {
+  const results = [];
+  let oneSet;
+  // iterates to num
+  for (let i = 1; i <= num; i += 1) {
+    oneSet = generateOneSetDateIds();
+    results.push(oneSet);
+  }
+  return results;
+}
 
 // *************************  eports  *************************
 
-// exports.resetRentalId = resetRentalId;
-// exports.generateRental = generateRental;
-// exports.generateRentals = generateRentals;
-// exports.getDateForId = getDateForId;
-// exports.generateDates = generateDates;
-// exports.generateOneSetDateIds = generateOneSetDateIds;
-
-let test = generateDates();
-console.log(test);
-
+exports.resetRentalId = resetRentalId;
+exports.generateRental = generateRental;
+exports.generateRentals = generateRentals;
+exports.getDateForId = getDateForId;
+exports.generateDates = generateDates;
+exports.generateOneSetDateIds = generateOneSetDateIds;
