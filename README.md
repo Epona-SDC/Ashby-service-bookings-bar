@@ -53,7 +53,10 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```
 
+Install Postgres
+
+Create database "Availability"
+Rename or copy /server/db/dbconfig.example.js to remove "example" and put in your database connection setting.

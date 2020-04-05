@@ -19,9 +19,12 @@
     "circular-std": "^1.0.3",
     "cors": "^2.8.5",
     "mongoose": "^5.9.4",
+    "pg": "^8.0.0",
+    "pg-hstore": "^2.3.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "sequelize": "^5.21.6"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",

@@ -49,7 +49,7 @@ const generateRental = () => {
   const rental = {};
   // call each above
   // assmble an object
-  rental._id = generateRentaIid();
+  rental.id = generateRentaIid();
   rental.price = generatePrice();
   rental.maxGuests = generateMaxGuests();
   rental.numReviews = generateReviews();
@@ -69,7 +69,7 @@ const getRentalHeader = () => {
 const generateRentalCSVLine = () => {
   const rental = generateRental();
   const {
-    _id,
+    id,
     price,
     maxGuests,
     numReviews,
@@ -79,7 +79,7 @@ const generateRentalCSVLine = () => {
     occupancyFee,
   } = rental;
   const line = `
-    ${_id},
+    ${id},
     ${price},
     ${maxGuests},
     ${numReviews},
