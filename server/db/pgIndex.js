@@ -10,11 +10,10 @@ const dbConnection = new Sequelize(dbName, login.user, login.password, {
 
 dbConnection.authenticate()
   .then((result) => {
-    console.log(result);
-    console.log(`${login.dialect} database connection made`);
+    console.log(`${login.dialect} database connection check successful`);
   })
   .catch((err) => {
-    console.error(err);
+    console.error('ERROR', err);
   });
 
 module.exports = dbConnection;

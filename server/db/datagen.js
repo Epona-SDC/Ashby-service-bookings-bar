@@ -1,7 +1,7 @@
 const rentalIdStart = 500000001;
 var rentalId = 500000001;
 const dateIdStart = 91;  // = April 1, 2020
-const dateIdEnd =  182;  // = June 30, 2020
+const dateIdEnd =  181;  // = June 30, 2020
 
 // *************************  Rentals Table Fields  *************************
 
@@ -139,6 +139,7 @@ const generateDates = () => {
 const generateCSVDates = () => {
   let dates = [];
   let csvLines = 'id,date\n';
+  // let csvLines = '';
   for (let i = 0; i < 91; i += 1) {
     let dateId = dateIdStart + i;
     let date = getDateForId(dateId);
@@ -181,7 +182,7 @@ const generateNumSetsDateIds = (num) => {
 }
 
 const generateRentalsDatesCSVHeader = () => {
-  return 'rentals_id,dates_id\n';
+  return 'rentalId,dateId\n';
 }
 
 const startRentalsDatesCSV = () => {
@@ -199,7 +200,7 @@ const generateJoinCSVLinesForOneRental = () => {
   return line;
 }
 
-// *************************  eports  *************************
+// *************************  exports  *************************
 
 exports.resetRentalId = resetRentalId;
 exports.generateRental = generateRental;

@@ -29,9 +29,9 @@ const writeRentalsDatesCSV = () => {
   fs.closeSync(rdFile);
 }
 
-writeRentalsCSV();
-writeDatesCSV();
-writeRentalsDatesCSV();
+// writeRentalsCSV();
+// writeDatesCSV();
+// writeRentalsDatesCSV();
 
 
 

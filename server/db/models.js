@@ -3,7 +3,7 @@ const dbConnection = require('./pgIndex.js');
 
 const Rental = dbConnection.define('rental', {
   id: {
-    type:DataTypes.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
   },
   price: DataTypes.REAL,
@@ -13,49 +13,73 @@ const Rental = dbConnection.define('rental', {
   cleaningFee: DataTypes.REAL,
   serviceFee: DataTypes.REAL,
   occupancyFee: DataTypes.REAL,
-});
+}, { timestamps: false }
+);
 
 const UpcomingDate = dbConnection.define('date', {
   id: {
-    type:DataTypes.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
   },
-  date: DataTypes.DATE,
-});
+  date: DataTypes.DATEONLY,
+}, { timestamps: false }
+);
 
 const RentalDate = dbConnection.define('rental_date', {
-  rentals_id: DataTypes.INTEGER,
-  dates_id: DataTypes.INTEGER,
-}, { tableName: 'rentals_dates',
+  rentalId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Rental,
+      key: 'id',
+    },
+  },
+  dateId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: UpcomingDate,
+      key: 'id',
+    }
+  },
+}, {
+  tableName: 'rentals_dates',
+  timestamps: false,
 });
 
+Rental.belongsToMany(UpcomingDate, { through: RentalDate });
+UpcomingDate.belongsToMany(Rental, { through: RentalDate });
 
-Rental.sync()
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+const recreateTables = () => {
+  return dbConnection.sync({ force: true });
+}
 
-UpcomingDate.sync()
-.then((result) => {
-  console.log(result);
-})
-.catch((error) => {
-  console.error(error);
-});
+dbConnection.sync();
 
-RentalDate.sync()
-.then((result) => {
-  console.log(result);
-})
-.catch((error) => {
-  console.error(error);
-});
+// Rental.sync()
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
 
+// UpcomingDate.sync()
+// .then((result) => {
+//   console.log(result);
+// })
+// .catch((error) => {
+//   console.error(error);
+// });
+
+// RentalDate.sync()
+// .then((result) => {
+//   console.log(result);
+// })
+// .catch((error) => {
+//   console.error(error);
+// });
 
 
 exports.Rental = Rental;
 exports.UpcomingDate = UpcomingDate;
 exports.RentalDate = RentalDate;
+exports.recreateTables = recreateTables;

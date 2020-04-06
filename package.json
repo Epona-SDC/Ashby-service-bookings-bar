@@ -11,7 +11,8 @@
     "build": "webpack --mode production",
     "test": "jest -c=jest.config.js",
     "server": "nodemon server/server.js",
-    "makeCSVData": "node server/db/dataToFile.js"
+    "makeCSVData": "node server/db/dataToFile.js",
+    "pgSetup": "node server/db/postgresSetup.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
