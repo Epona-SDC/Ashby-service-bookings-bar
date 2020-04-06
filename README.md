@@ -51,7 +51,19 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```
+
+npm run makeCSVData to generate CSV data files.
+
+Install Postgres
+Create database "Availability"
+Rename or copy /server/db/dbconfig.example.js to remove "example" and put in your database connection setting. Make sure there is superuser access for setup.
+npm run pgSetup
+-- sets up tables in postgres Availability database
+
+Use postgres shell command line for the following:
+-copy dates from 'PATH_TO_FILE/dates.csv' delimiter ',' csv header;
+-copy rentals from 'PATH_TO_FILE/rentals.csv' delimiter ',' csv header;
+copy rentals_dates from 'PATH_TO_FILE/rentals_dates.csv' delimiter ',' csv header;
 

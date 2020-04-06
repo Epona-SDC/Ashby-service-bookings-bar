@@ -27,3 +27,9 @@ public/bundle.js
 
 # AWS private key
 azum-service.pem
+
+testData.txt
+rentals.csv
+dates.csv
+rentals_dates.csv
+dbconfig.js
