@@ -4,6 +4,7 @@ dataGen = require('./dataGen.js');
 const rentalFileName = 'rentals.csv';
 const datesFileName = 'dates.csv';
 const rentalsDatesFileName = 'rentals_dates.csv';
+const cassandraFileName = 'cassie_data.csv';
 
 const writeRentalsCSV = () => {
   const rentalFile = fs.openSync(rentalFileName, 'w');
@@ -29,9 +30,19 @@ const writeRentalsDatesCSV = () => {
   fs.closeSync(rdFile);
 }
 
+const writeCassandraRentalsCSV = () => {
+  const rentalFile = fs.openSync(cassandraFileName, 'w');
+  fs.writeSync(rentalFile, dataGen.generateRentalCSVHeaderCassandra());
+  for (let i = 0; i < 50; i += 1) {
+    fs.writeSync(rentalFile, dataGen.generateRentalCSVLineCassandra());
+  }
+  fs.closeSync(rentalFile);
+}
+
 // writeRentalsCSV();
 // writeDatesCSV();
 // writeRentalsDatesCSV();
+writeCassandraRentalsCSV();
 
 
 
