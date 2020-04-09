@@ -22,7 +22,7 @@
 > To POST header should have Content-Type header of applicatio/json and no parameters. An id will be generated, but boody must contain all other fields in JSON format.
 > PUT requires id parameter and same Content-Type header of applicatiob/json. The body must contain all updates to be made in JSON format.
 
-> Current schema:
+> Original schema:
   _id: Number,
   price: Number,
   max_guests: Number,
@@ -62,8 +62,24 @@ Rename or copy /server/db/dbconfig.example.js to remove "example" and put in you
 npm run pgSetup
 -- sets up tables in postgres Availability database
 
-Use postgres shell command line for the following:
+Open file dataToFile.js
+Uncomment the functions under the label "for Postgres:"
+npm run makeCSVData
+
+Use postgres shell command line for the following to load tables:
 -copy dates from 'PATH_TO_FILE/dates.csv' delimiter ',' csv header;
 -copy rentals from 'PATH_TO_FILE/rentals.csv' delimiter ',' csv header;
 copy rentals_dates from 'PATH_TO_FILE/rentals_dates.csv' delimiter ',' csv header;
+
+
+Install Cassandra
+Create keyspace and table with schema laid out and end of dataGen.js file.
+
+Open file dataToFile.js
+Uncomment the functions under the label "for Cassandra"
+npm run makeCSVData
+
+Use Cassandra shell command line to run and load table:
+-COPY rentals (id, price, maxGuests, numReviews, avgStars, cleaningFee, serviceFee, occupancyFee, availability) FROM '~/Hack Reactor/SDC/Ashby-service-bookings-bar/server/db/cassie_data.csv' WITH header = true AND DELIMITER = '|';
+
 

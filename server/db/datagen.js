@@ -83,16 +83,29 @@ const generateRentalCSVLine = () => {
 }
 
 const generateRentalCSVHeaderCassandra = () => {
-  let line = 'id, price, maxGuests, numReviews, avgStars, cleaningFee, serviceFee, occupancyFee, availability\n';
+  let line = 'id|price|maxGuests|numReviews|avgStars|cleaningFee|serviceFee|occupancyFee|availability\n';
   return line;
 }
 
 const generateRentalCSVLineCassandra = () => {
-  let line = generateRentalCSVLine();
-  line = line.slice(0, line.length-2);
+  // let line = generateRentalCSVLine();
+  // line = line.slice(0, line.length-2);
+  const rental = generateRental();
+  const {
+    id,
+    price,
+    maxGuests,
+    numReviews,
+    avgStars,
+    cleaningFee,
+    serviceFee,
+    occupancyFee,
+  } = rental;
+  let line = `${id}|${price}|${maxGuests}|${numReviews}|${avgStars}|${cleaningFee}|${serviceFee}|${occupancyFee}`;
+
   let availability = generateCSVDatesCassandra();
 
-  line = `${line}, {${availability}}\n`;
+  line = `${line}|{${availability}}\n`;
 
   return line;
 }
