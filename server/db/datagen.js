@@ -78,15 +78,35 @@ const generateRentalCSVLine = () => {
     serviceFee,
     occupancyFee,
   } = rental;
-  const line = `
-    ${id},
-    ${price},
-    ${maxGuests},
-    ${numReviews},
-    ${avgStars},
-    ${cleaningFee},
-    ${serviceFee},
-    ${occupancyFee}\n`;
+  const line = `${id}, ${price}, ${maxGuests}, ${numReviews}, ${avgStars}, ${cleaningFee}, ${serviceFee}, ${occupancyFee}\n`;
+  return line;
+}
+
+const generateRentalCSVHeaderCassandra = () => {
+  let line = 'id|price|maxGuests|numReviews|avgStars|cleaningFee|serviceFee|occupancyFee|availability\n';
+  return line;
+}
+
+const generateRentalCSVLineCassandra = () => {
+  // let line = generateRentalCSVLine();
+  // line = line.slice(0, line.length-2);
+  const rental = generateRental();
+  const {
+    id,
+    price,
+    maxGuests,
+    numReviews,
+    avgStars,
+    cleaningFee,
+    serviceFee,
+    occupancyFee,
+  } = rental;
+  let line = `${id}|${price}|${maxGuests}|${numReviews}|${avgStars}|${cleaningFee}|${serviceFee}|${occupancyFee}`;
+
+  let availability = generateCSVDatesCassandra();
+
+  line = `${line}|{${availability}}\n`;
+
   return line;
 }
 
@@ -126,6 +146,28 @@ const getDateForId = (dateId) => {
   return `${yyyy}/${mm}/${dd}`
 }
 
+const getDateForIdCassandra = (dateId) => {
+  // computes and returns date in yyyy/mm/dd for given date id
+  const yyyy = '2020';
+  let mm;
+  let dd;
+
+  if ((dateId < 91) || (dateId > 182)) {
+    return 'invalid dateID';
+  }
+  if (dateId <= 120) {
+    mm = '04';
+    dd = dateId - 90;
+  } else if (dateId <= 151) {
+    mm = '05';
+    dd = dateId - 120;
+  } else {
+    mm = '06';
+    dd = dateId - 151;
+  }
+  return `${yyyy}-${mm}-${dd}`
+}
+
 const generateDates = () => {
   let dates = [];
   for (let i = 0; i < 91; i += 1) {
@@ -146,6 +188,19 @@ const generateCSVDates = () => {
     csvLines += `${dateId},${date}\n`;
   }
   return csvLines;
+}
+
+const generateCSVDatesCassandra = () => {
+  let csvDates = '';
+  for (let i = 0; i < 91; i += 1) {
+    let dateId = dateIdStart + i;
+    let date = getDateForIdCassandra(dateId);
+    if (isDateAvailable()) {
+      csvDates += `'${date}',`;
+    }
+  }
+  csvDates = csvDates.slice(0, csvDates.length-1);
+  return csvDates;
 }
 
 
@@ -213,3 +268,6 @@ exports.generateRentalCSVLine = generateRentalCSVLine;
 exports.generateCSVDates = generateCSVDates;
 exports.startRentalsDatesCSV = startRentalsDatesCSV;
 exports.generateJoinCSVLinesForOneRental = generateJoinCSVLinesForOneRental;
+exports.generateRentalCSVHeaderCassandra = generateRentalCSVHeaderCassandra;
+exports.generateCSVDatesCassandra = generateCSVDatesCassandra;
+exports.generateRentalCSVLineCassandra = generateRentalCSVLineCassandra;
