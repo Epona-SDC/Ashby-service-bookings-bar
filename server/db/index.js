@@ -10,7 +10,12 @@ const cassie = new Cassandra.Client({
   keyspace: keyspaceName,
 });
 
-// promises successul commands!
+
+const closeDb = () => {
+  cassie.shutdown();
+};
+
+
 cassie.connect()
   .then(() => {
     console.log(`Connected to ${cassie.hosts.length} nodes in the cluster: ${cassie.hosts.keys().join(', ')}`);
@@ -20,7 +25,10 @@ cassie.connect()
   });
 
 
-module.exports = cassie;
+
+
+exports.cassie = cassie;
+exports.closeDb = closeDb;
 
 // callback option works! Nothing is sent in result on successful connection
 // cassie.connect((err, result) => {
