@@ -1,43 +1,24 @@
-const Cassandra = require('cassandra-driver');
+const { Sequelize } = require('sequelize');
+const login = require('./dbconfig.js');
 
-const keyspaceName = 'availability';
-const contactPts = ['127.0.0.1:9042'];
-const dataCenter = 'datacenter1';
+const dbName = 'Availability';
 
-const cassie = new Cassandra.Client({
-  contactPoints: contactPts,
-  localDataCenter: dataCenter,
-  keyspace: keyspaceName,
+const dbConnection = new Sequelize(dbName, login.user, login.password, {
+  host: login.host,
+  dialect: `${login.dialect}`
 });
 
+// dbConnection.authenticate()
+//   .then((result) => {
+//     console.log(`${login.dialect} database connection check successful`);
+//   })
+//   .catch((err) => {
+//     console.error('ERROR', err);
+//   });
 
-const closeDb = () => {
-  cassie.shutdown();
-};
+  const closeDb = () => {
+    return dbConnection.close();
+  }
 
-
-cassie.connect()
-  .then(() => {
-    console.log(`Connected to ${cassie.hosts.length} nodes in the cluster: ${cassie.hosts.keys().join(', ')}`);
-  })
-  .catch((err) => {
-    console.error(`issue connecting to Cassandra keyspace ${keyspaceName} in data center ${dataCenter} at contact points ${contactPoints}`, err);
-  });
-
-
-
-
-exports.cassie = cassie;
+exports.connection = dbConnection;
 exports.closeDb = closeDb;
-
-// callback option works! Nothing is sent in result on successful connection
-// cassie.connect((err, result) => {
-//   if (err) {
-//     console.error('issue!', err);
-//   } else {
-//     console.log('success!', result);
-//   }
-// })
-
-// despite being highlighted in documentation, did not work
-// await cassie.connect();
