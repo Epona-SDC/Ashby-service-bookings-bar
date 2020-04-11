@@ -33,11 +33,14 @@ const returnedDatesToArray = (returnedDates) => {
   return dates;
 }
 
-const getOneJustRentalInfo = (id) => {
+const getOneJustRental = (id) => {
   return Rental.findOne({
     where: { id: id },
   })
     .then((result) => {
+      if (result === null) {
+        return null;
+      }
       return returnedRentalInfoToObject(result.dataValues);
     })
     .catch((err, extra3) => {
@@ -51,6 +54,9 @@ const getOneRentalAndDates = (id) => {
     include: UpcomingDate,
   })
     .then((result) => {
+      if (result === null) {
+        return null;
+      }
       const dataValues = result.dataValues;
       const rentalInfo = returnedRentalInfoToObject(dataValues);
       const allDates = returnedDatesToArray(dataValues.dates);
@@ -63,7 +69,7 @@ const getOneRentalAndDates = (id) => {
     });
 }
 
-exports.getOneJustRentalInfo = getOneJustRentalInfo;
+exports.getOneJustRental = getOneJustRental;
 exports.getOneRentalAndDates = getOneRentalAndDates;
 
 /*  Making the data look like this and shouldn't have to refactor the client:
