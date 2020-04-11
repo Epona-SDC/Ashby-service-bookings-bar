@@ -39,12 +39,15 @@ const getOneJustRental = (id) => {
   })
     .then((result) => {
       if (result === null) {
-        return null;
+        throw 'That id does not exist';
       }
       return returnedRentalInfoToObject(result.dataValues);
     })
-    .catch((err, extra3) => {
-      console.error('error:', err);
+    .catch((err) => {
+      if (typeof err !== 'string') {
+        console.error('error fetching basic rental info');
+      }
+      throw err;
     });
 }
 
@@ -55,7 +58,7 @@ const getOneRentalAndDates = (id) => {
   })
     .then((result) => {
       if (result === null) {
-        return null;
+        throw 'That id does not exist';
       }
       const dataValues = result.dataValues;
       const rentalInfo = returnedRentalInfoToObject(dataValues);
@@ -65,9 +68,38 @@ const getOneRentalAndDates = (id) => {
       return rentalInfo;
     })
     .catch((err, extra3) => {
-      console.error('error:', err);
+      if (typeof err !== 'string') {
+        console.error('error fetching basic rental info');
+      }
+      throw err;
     });
 }
+
+const addDateToRental = (rentalId, date) => {
+  // get id for date from UpcomingDate table
+  // insert a line into RentalDate using renatalId and dateId
+}
+
+const makeNewRental = (rentalInfo) => {
+  // add entry to Rental using basic info
+  // loop through array of dates
+    // call addDateToRental for each
+  // use promiseAll?
+}
+
+const deleteRental = (id) => {
+  // use Rental to delete
+  // tables set to cascade deletion automagically, yay!
+}
+
+const updateRental = () => {
+  // use Rental to update basic info
+
+  // fetch dates for the rental
+  // compare the lists
+  // add / delete as necessary
+}
+
 
 exports.getOneJustRental = getOneJustRental;
 exports.getOneRentalAndDates = getOneRentalAndDates;
