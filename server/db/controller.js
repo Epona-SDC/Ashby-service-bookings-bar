@@ -1,5 +1,8 @@
 const { Rental, UpcomingDate, RentalDate } = require('./models.js');
 
+const START_DAY = 1585724400000;
+const LAST_DAY = 1593500400000;
+
 const isValidReal = (num) => {
   if ((num !== undefined) && (typeof num === 'number')) {
     return true;
@@ -12,6 +15,107 @@ const isValidInt = (num) => {
     return true;
   }
   return false;
+}
+
+const validateDates = (dates) => {
+  let isValid = true;
+  let issues = '';
+
+  if (!Array.isArray(dates)) {
+    isValid = false;
+    issues = 'dates must be in an array';
+    return { isValid, issues }
+  }
+
+  for (let i = 0; i < dates.length; i += 1) {
+    if (typeof dates[i] !== 'string') {
+      isValid = false;
+      issues = 'all dates much be in string format';
+      return { isValid, issues };
+    }
+
+    let date = Date.parse(dates[i]);
+    if (isNaN(date)) {
+      isValid = false;
+      issues = 'must be valid dates';
+      return { isValid, issues };
+    }
+
+    if ((date < START_DAY) || (date > LAST_DAY)) {
+      isValid = false;
+      issues = 'date out of range';
+      return { isValid, issues };
+    }
+  }
+  return { isValid, issues }
+}
+
+const validateFullData = (rentalInfo) => {
+  // ignore if an id is passed in, client doesn't get to decide that
+  const { price, max_guests, availability, } = rentalInfo;
+  const { cleaning_fee, service_fee, occupancy_fee, } = rentalInfo.fees;
+  let { numReviews, avgStars } = rentalInfo.reviews;
+  let isValid = true;
+  let issues = '';
+
+  // some data validation
+  // price: exists, valid real
+  if (!isValidReal(price)) {
+    isValid = false;
+    issues += 'invalid price';
+  }
+  // max_guests: exists, valid int
+  if (!isValidInt(max_guests)) {
+    isValid = false;
+    if (issues.length > 0) {
+      issues += ', ';
+    }
+    issues += 'invalid maximum guests';
+  }
+  // cleaning_fee: exists, valid real
+  if (!isValidReal(cleaning_fee)) {
+    isValid = false;
+    if (issues.length > 0) {
+      issues += ', ';
+    }
+    issues += 'invalid cleaning fee';
+  }
+  // service_fee: exists, valid real
+  if (!isValidReal(service_fee)) {
+    isValid = false;
+    if (issues.length > 0) {
+      issues += ', ';
+    }
+    issues += 'invalid service fee';
+  }
+  // occupancy_fee: exists, valid real
+  if (!isValidReal(occupancy_fee)) {
+    isValid = false;
+    if (issues.length > 0) {
+      issues += ', ';
+    }
+    issues += 'invalid occupancy fee';
+  }
+  // if no numReviews, default to 0 and set avgStars same
+  if ((!isValidInt(numReviews)) || (!isValidReal(avgStars))) {
+    // else: both valid int / real
+    numReviews = 0;
+    avgStars = 0;
+    if (issues.length > 0) {
+      issues += ', ';
+    }
+    issues += 'problem with ratings - defaulting number and average to 0';
+  }
+
+  const areDatesValid = validateDates(availability);
+  isValid = isValid && areDatesValid.isValid;
+  if (areDatesValid.issues.length > 0) {
+    if (issues.length > 0) {
+      issues += ', and ';
+    }
+    issues += areDatesValid.issues;
+  }
+  return { isValid, issues };
 }
 
 const returnedRentalInfoToObject = (returnedInfo) => {
@@ -89,72 +193,6 @@ const getOneRentalAndDates = (id) => {
     });
 }
 
-const validateFullData = (rentalInfo) => {
-  // ignore if an id is passed in, client doesn't get to decide that
-  const { price, max_guests, availability, } = rentalInfo;
-  const { cleaning_fee, service_fee, occupancy_fee, } = rentalInfo.fees;
-  let { numReviews, avgStars } = rentalInfo.reviews;
-  let isValid = true;
-  let issues = '';
-
-  // some data validation
-  // price: exists, valid real
-  if (!isValidReal(price)) {
-    isValid = false;
-    issues += 'invalid price';
-  }
-  // max_guests: exists, valid int
-  if (!isValidInt(max_guests)) {
-    isValid = false;
-    if (issues.length > 0) {
-      issues += ', ';
-    }
-    issues += 'invalid maximum guests';
-  }
-  // cleaning_fee: exists, valid real
-  if (!isValidReal(cleaning_fee)) {
-    isValid = false;
-    if (issues.length > 0) {
-      issues += ', ';
-    }
-    issues += 'invalid cleaning fee';
-  }
-  // service_fee: exists, valid real
-  if (!isValidReal(service_fee)) {
-    isValid = false;
-    if (issues.length > 0) {
-      issues += ', ';
-    }
-    issues += 'invalid service fee';
-  }
-  // occupancy_fee: exists, valid real
-  if (!isValidReal(occupancy_fee)) {
-    isValid = false;
-    if (issues.length > 0) {
-      issues += ', ';
-    }
-    issues += 'invalid occupancy fee';
-  }
-  // if no numReviews, default to 0 and set avgStars same
-  if ((!isValidInt(numReviews)) || (!isValidReal(avgStars))) {
-    // else: both valid int / real
-    numReviews = 0;
-    avgStars = 0;
-    if (issues.length > 0) {
-      issues += ', ';
-    }
-    issues += 'problem with ratings - defaulting number and average to 0';
-  }
-  // use Rental to update basic info
-
-  // put dates in order
-  // loop through and check that dates are valid
-    // add each valid date
-
-  return { isValid, issues };
-}
-
-
 const makeNewRental = (rentalInfo) => {
 }
 
@@ -176,34 +214,33 @@ const deleteRental = (id) => {
 }
 
 
-// var test = {
-// 	"availability" : [
-// 		"10/10/2020",
-// 		"8/9/2020",
-// 		"6/8/2020",
-// 		"4/13/2020",
-// 		"4/25/2020",
-// 		"5/18/2020",
-// 		"11/26/2020",
-// 		"3/12/2020",
-// 		"8/10/2020",
-// 		"9/2/2020",
-// 		"1/8/2020",
-// 		"4/18/2020"
-// 	],
-// 	"price" : 172,
-// 	"max_guests" : 3,
-// 	"reviews" : {
-// 		"numReviews" : 8,
-// 		"avgStars" : 4.63
-// 	},
-// 	"fees" : {
-// 		"cleaning_fee" : 55,
-// 		"service_fee" : 61,
-// 		"occupancy_fee" : 90
-// 	}
-// }
-// console.log(validateFullData(test));
+var test = {
+	"availability" : [
+		"5/9/2020",
+		"6/8/2020",
+		"4/13/2020",
+		"4/25/2020",
+		"5/18/2020",
+		"6/26/2020",
+		"4/12/2020",
+		"5/10/2020",
+		"5/2/2020",
+		"6/8/2020",
+		"4/18/2020"
+	],
+	"price" : 172,
+	"max_guests" : 3,
+	"reviews" : {
+		"numReviews" : 8,
+		"avgStars" : 4.63
+	},
+	"fees" : {
+		"cleaning_fee" : 55,
+		"service_fee" : 61,
+		"occupancy_fee" : 90
+	}
+}
+console.log(validateFullData(test));
 
 
 exports.getOneJustRental = getOneJustRental;
