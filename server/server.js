@@ -11,12 +11,13 @@ app.use(express.static(path.resolve(__dirname, "../public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/rentals", (req, res) => {
-  const id = parseInt(req.query.id);
-  getOneRentalAndDates(id)
+app.get("/rentals/:itemId", (req, res) => {
+  const { itemId } = req.params;
+  console.log('get request caught with id:', itemId);
+  getOneRentalAndDates(itemId)
     .then(result => {
       if (result === null) {
-        res.status(404).send('id does not exist');
+        res.status(404).send('could not find listing by with that id');
       } else {
         res.json(result);
       }
