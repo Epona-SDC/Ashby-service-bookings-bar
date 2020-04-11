@@ -50,37 +50,6 @@ UpcomingDate.belongsToMany(Rental, { through: RentalDate });
 
 // db.connection.sync();
 
-// const recreateTables = () => {
-//   return dbConnection.sync({ force: true });
-// }
-
-
-// Rental.sync()
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-
-// UpcomingDate.sync()
-// .then((result) => {
-//   console.log(result);
-// })
-// .catch((error) => {
-//   console.error(error);
-// });
-
-// RentalDate.sync()
-// .then((result) => {
-//   console.log(result);
-// })
-// .catch((error) => {
-//   console.error(error);
-// });
-
-
 exports.Rental = Rental;
 exports.UpcomingDate = UpcomingDate;
 exports.RentalDate = RentalDate;
-// exports.recreateTables = recreateTables;

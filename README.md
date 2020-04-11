@@ -60,12 +60,14 @@ Install Postgres
 Create database "Availability"
 Rename or copy /server/db/dbconfig.example.js to remove "example" and put in your database connection setting. Make sure there is superuser access for setup.
 uncomment "// db.connection.sync();" in models.js
-npm run pgSetup
+node model.js
 This sets up tables in postgres Availability database
+Comment the line back out.
 
 Open file dataToFile.js
 Uncomment the functions under the label "for Postgres:"
 npm run makeCSVData
+Comment them back out for safety, or not.
 
 Use postgres shell command line for the following to load tables:
 -copy dates from 'PATH_TO_FILE/dates.csv' delimiter ',' csv header;
