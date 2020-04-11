@@ -194,7 +194,48 @@ const getOneRentalAndDates = (id) => {
 }
 
 const makeNewRental = (rentalInfo) => {
+  return new Promise((resolve, reject) => {
+    const dataCheck = validateFullData(rentalInfo);
+    if (!dataCheck.isValid) {
+      reject(dataCheck.issues);
+    } else {
+      resolve(rentalInfo);
+    }
+  });
 }
+
+
+const test =
+  {
+    "availability" : [
+      "6/8/2020",
+      "4/13/2020",
+      "4/25/2020",
+      "5/18/2020",
+      "4/18/2020"
+    ],
+    "price" : 172,
+    "max_guests" : 3,
+    "reviews" : {
+      "numReviews" : 8,
+      "avgStars" : 4.63
+    },
+    "fees" : {
+      "cleaning_fee" : 55,
+      "service_fee" : 61,
+      "occupancy_fee" : 90
+    }
+  };
+
+
+makeNewRental(test)
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
 
 const addDateToRental = (rentalId, date) => {
   // get id for date from UpcomingDate table
@@ -212,36 +253,6 @@ const deleteRental = (id) => {
   // use Rental to delete
   // tables set to cascade deletion automagically, yay!
 }
-
-
-var test = {
-	"availability" : [
-		"5/9/2020",
-		"6/8/2020",
-		"4/13/2020",
-		"4/25/2020",
-		"5/18/2020",
-		"6/26/2020",
-		"4/12/2020",
-		"5/10/2020",
-		"5/2/2020",
-		"6/8/2020",
-		"4/18/2020"
-	],
-	"price" : 172,
-	"max_guests" : 3,
-	"reviews" : {
-		"numReviews" : 8,
-		"avgStars" : 4.63
-	},
-	"fees" : {
-		"cleaning_fee" : 55,
-		"service_fee" : 61,
-		"occupancy_fee" : 90
-	}
-}
-console.log(validateFullData(test));
-
 
 exports.getOneJustRental = getOneJustRental;
 exports.getOneRentalAndDates = getOneRentalAndDates;
