@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const dbConnection = require('./pgIndex.js');
+const db = require('./index.js');
 
-const Rental = dbConnection.define('rental', {
+const Rental = db.connection.define('rental', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -16,7 +16,7 @@ const Rental = dbConnection.define('rental', {
 }, { timestamps: false }
 );
 
-const UpcomingDate = dbConnection.define('date', {
+const UpcomingDate = db.connection.define('date', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -25,7 +25,7 @@ const UpcomingDate = dbConnection.define('date', {
 }, { timestamps: false }
 );
 
-const RentalDate = dbConnection.define('rental_date', {
+const RentalDate = db.connection.define('rental_date', {
   rentalId: {
     type: DataTypes.INTEGER,
     references: {
@@ -48,38 +48,8 @@ const RentalDate = dbConnection.define('rental_date', {
 Rental.belongsToMany(UpcomingDate, { through: RentalDate });
 UpcomingDate.belongsToMany(Rental, { through: RentalDate });
 
-const recreateTables = () => {
-  return dbConnection.sync({ force: true });
-}
-
-dbConnection.sync();
-
-// Rental.sync()
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-
-// UpcomingDate.sync()
-// .then((result) => {
-//   console.log(result);
-// })
-// .catch((error) => {
-//   console.error(error);
-// });
-
-// RentalDate.sync()
-// .then((result) => {
-//   console.log(result);
-// })
-// .catch((error) => {
-//   console.error(error);
-// });
-
+// db.connection.sync();
 
 exports.Rental = Rental;
 exports.UpcomingDate = UpcomingDate;
 exports.RentalDate = RentalDate;
-exports.recreateTables = recreateTables;
