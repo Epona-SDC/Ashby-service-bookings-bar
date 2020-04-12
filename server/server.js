@@ -1,7 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const { getOneJustRental, getOneRentalAndDates } = require('./db/controller.js');
+const {
+  getOneJustRental,
+  getOneRentalAndDates,
+  makeNewRental
+} = require('./db/controller.js');
 
 var app = express();
 
@@ -33,9 +37,13 @@ app.delete("/api/rentals", (req, res) => {
 
 app.post("/api/rentals", (req, res) => {
   const newRental = req.body;
-  console.log(newRental);
-  res.send('not currently implemented');
-  // body needs the pieces, call controller update
+  makeNewRental(newRental)
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    })
 });
 
 app.put("/api/rentals", (req, res) => {

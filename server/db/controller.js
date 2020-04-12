@@ -282,6 +282,7 @@ const deleteRental = (id) => {
 
 exports.getOneJustRental = getOneJustRental;
 exports.getOneRentalAndDates = getOneRentalAndDates;
+exports.makeNewRental = makeNewRental;
 
 /*  Making the data look like this and shouldn't have to refactor the client:
 
