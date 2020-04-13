@@ -1,8 +1,8 @@
 {
-  "name": "azum-service",
+  "name": "bookings-service",
   "version": "1.0.0",
   "description": "Reservation booking and calendar availability services for Airbnb website",
-  "author": "Azum Beg",
+  "author": "Azum Beg, Ashby Gunter",
   "engines": {
     "node": ">=6.13.0"
   },
@@ -21,6 +21,7 @@
     "circular-std": "^1.0.3",
     "cors": "^2.8.5",
     "mongoose": "^5.9.4",
+    "newrelic": "^6.5.0",
     "pg": "^8.0.0",
     "pg-hstore": "^2.3.3",
     "react": "^16.13.0",
