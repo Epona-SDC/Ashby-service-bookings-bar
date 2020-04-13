@@ -1,7 +1,7 @@
 config:
   target: "http://localhost:3003"
   phases:
-    - duration: 1
+    - duration: 30
       arrivalRate: 1
       name: '1 per second'
     # - duration: 30
@@ -13,6 +13,7 @@ config:
     # - duration: 30
     #   arrivalRate: 100
     #   name: '1,000 per second'
+  processor: "./dataGeneration/datagen.js"
   # payload:
   #   path: "keywords.csv"
   #   fields:
@@ -20,10 +21,10 @@ config:
 scenarios:
   - name: "trying out"
     flow:
+    - function: "randomRentalId"
     - get:
-        url: "/api/rentals"
-        qs:
-          id: 509000003
+        url: "/api/rentals?id={{id}}"
+
 
 
   # - name: "Search and buy"

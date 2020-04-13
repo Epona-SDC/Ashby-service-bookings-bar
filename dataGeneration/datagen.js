@@ -255,19 +255,59 @@ const generateJoinCSVLinesForOneRental = () => {
   return line;
 }
 
+
+// *************  for generating stress test data  *************
+
+const generateRandomDatesList = () => {
+  let dates = [];
+  for (let i = 0; i < 91; i += 1) {
+    if (isDateAvailable()) {
+      let dateId = dateIdStart + i;
+      let date = getDateForId(dateId);
+      dates.push(date)
+    }
+  }
+  return dates;
+}
+
+const generateNewRentalWithDates = () => {
+  const rental = generateRental();
+  rental.availability = generateRandomDatesList();
+  return rental;
+}
+
+const randomRentalId = (context, events, done) => {
+  // top record from initial 10M run's id is 510,000,000
+  // so want a random number between that and 509,000,001
+  const highId = Math.floor(Math.random() * 999999) + 509000001;
+  context.vars['id'] = highId;
+  return done();
+}
+
+ // generate number of reviews from 3-20
+ const numReviews = Math.floor(Math.random() * 18) + 3;
+
 // *************************  exports  *************************
 
 exports.resetRentalId = resetRentalId;
 exports.generateRental = generateRental;
-exports.generateRentals = generateRentals;
-exports.getDateForId = getDateForId;
-exports.generateDates = generateDates;
-exports.generateOneSetDateIds = generateOneSetDateIds;
 exports.getRentalHeader = getRentalHeader;
 exports.generateRentalCSVLine = generateRentalCSVLine;
 exports.generateCSVDates = generateCSVDates;
 exports.startRentalsDatesCSV = startRentalsDatesCSV;
 exports.generateJoinCSVLinesForOneRental = generateJoinCSVLinesForOneRental;
-exports.generateRentalCSVHeaderCassandra = generateRentalCSVHeaderCassandra;
-exports.generateCSVDatesCassandra = generateCSVDatesCassandra;
-exports.generateRentalCSVLineCassandra = generateRentalCSVLineCassandra;
+
+exports.generateNewRentalWithDates = generateNewRentalWithDates;
+exports.randomRentalId = randomRentalId;
+
+
+// exports.generateRentals = generateRentals;
+// exports.getDateForId = getDateForId;
+// exports.generateDates = generateDates;
+// exports.generateOneSetDateIds = generateOneSetDateIds;
+
+
+
+// exports.generateRentalCSVHeaderCassandra = generateRentalCSVHeaderCassandra;
+// exports.generateCSVDatesCassandra = generateCSVDatesCassandra;
+// exports.generateRentalCSVLineCassandra = generateRentalCSVLineCassandra;
