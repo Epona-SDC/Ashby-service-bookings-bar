@@ -1,44 +1,34 @@
 config:
   target: "http://localhost:3003"
   phases:
-    - duration: 30
+    - duration: 10
       arrivalRate: 1
       name: '1 per second'
-    # - duration: 30
-    #   arrivalRate: 10
-    #   name: '10 per second'
-    # - duration: 30
-    #   arrivalRate: 100
-    #   name: '100 per second'
-    # - duration: 30
-    #   arrivalRate: 100
-    #   name: '1,000 per second'
+    - duration: 10
+      arrivalRate: 10
+      name: '10 per second'
+    - duration: 10
+      arrivalRate: 100
+      name: '100 per second'
+    - duration: 10
+      arrivalRate: 1000
+      name: '1,000 per second'
   processor: "./dataGeneration/datagen.js"
-  # payload:
-  #   path: "keywords.csv"
-  #   fields:
-  #     - "keywords"
 scenarios:
-  - name: "trying out"
+  - name: "GET testing"
     flow:
     - function: "randomRentalId"
     - get:
-        url: "/api/rentals?id={{id}}"
+        url: "/?id={{id}}"
+  - name: "POST testing"
+    flow:
+    - function: "generateNewRentalWithDates"
+    - post:
+        url: "/api/rentals"
+        json:
+          price: "{{price}}"
+          max_guests: "{{max_guests}}"
+          reviews: "{{reviews}}"
+          fees: "{{fees}}"
+          availability: "{{availability}}"
 
-
-
-  # - name: "Search and buy"
-  #   flow:
-  #     - post:
-  #         url: "/search"
-  #         body: "kw={{ keywords }}"
-  #         capture:
-  #           json: "$.results[0].id"
-  #           as: "id"
-  #     - get:
-  #         url: "/details/{{ id }}"
-  #     - think: 3
-  #     - post:
-  #         url: "/cart"
-  #         json:
-  #           productId: "{{ id }}"

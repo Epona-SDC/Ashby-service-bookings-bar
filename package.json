@@ -10,9 +10,11 @@
     "dev": "webpack-dev-server --open --mode development --content-base public/",
     "build": "webpack --mode production",
     "test": "jest -c=jest.config.js",
-    "server": "nodemon server/server.js",
+    "dev-server": "nodemon server/server.js",
     "makeCSVData": "node server/db/dataToFile.js",
-    "pgSetup": "node server/db/postgresSetup.js"
+    "pgSetup": "node server/db/postgresSetup.js",
+    "start": "node server/server.js",
+    "stress": "artillery run stress.yml"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -21,6 +23,7 @@
     "circular-std": "^1.0.3",
     "cors": "^2.8.5",
     "mongoose": "^5.9.4",
+    "morgan": "^1.10.0",
     "newrelic": "^6.5.0",
     "pg": "^8.0.0",
     "pg-hstore": "^2.3.3",

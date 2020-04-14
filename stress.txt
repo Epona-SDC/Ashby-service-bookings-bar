@@ -1,0 +1,329 @@
+-duration: 60
+-arrivalRate: 300
+
+All virtual users finished
+Summary report @ 20:20:08(-0700) 2020-04-13
+  Scenarios launched:  18001
+  Scenarios completed: 18001
+  Requests completed:  18001
+  Mean response/sec: 296.02
+  Response time (msec):
+    min: 0.6
+    max: 1311.1
+    median: 0.9
+    p95: 5.2
+    p99: 9.6
+  Scenario counts:
+    GET testing: 18001 (100%)
+  Codes:
+    200: 18001
+
+==============================
+
+-duration: 120
+-arrivalRate: 300
+
+All virtual users finished
+Summary report @ 20:26:26(-0700) 2020-04-13
+  Scenarios launched:  36003
+  Scenarios completed: 36003
+  Requests completed:  36003
+  Mean response/sec: 298.58
+  Response time (msec):
+    min: 0.6
+    max: 991.7
+    median: 1.1
+    p95: 6.4
+    p99: 12.5
+  Scenario counts:
+    GET testing: 36003 (100%)
+  Codes:
+    200: 36003
+
+==============================
+
+-duration: 180
+-arrivalRate: 300
+
+All virtual users finished
+Summary report @ 20:46:42(-0700) 2020-04-13
+  Scenarios launched:  54005
+  Scenarios completed: 54005
+  Requests completed:  54005
+  Mean response/sec: 298.98
+  Response time (msec):
+    min: 0.6
+    max: 2865.2
+    median: 1.1
+    p95: 6.3
+    p99: 13.3
+  Scenario counts:
+    GET testing: 54005 (100%)
+  Codes:
+    200: 54005
+
+==============================
+
+-duration: 180
+-arrivalRate: 350
+
+Warning:
+CPU usage of Artillery seems to be very high (pids: 14483)
+
+All virtual users finished
+Summary report @ 20:38:29(-0700) 2020-04-13
+  Scenarios launched:  63003
+  Scenarios completed: 63003
+  Requests completed:  63003
+  Mean response/sec: 347.6
+  Response time (msec):
+    min: 0.6
+    max: 846.9
+    median: 3.8
+    p95: 8.7
+    p99: 30.1
+  Scenario counts:
+    GET testing: 63003 (100%)
+  Codes:
+    200: 63003
+
+==============================
+
+-duration: 30
+-arrivalRate: 400
+
+no warnings
+
+All virtual users finished
+Summary report @ 19:53:11(-0700) 2020-04-13
+  Scenarios launched:  12000
+  Scenarios completed: 12000
+  Requests completed:  12000
+  Mean response/sec: 385.36
+  Response time (msec):
+    min: 0.8
+    max: 2355.2
+    median: 4.3
+    p95: 12.2
+    p99: 110.5
+  Scenario counts:
+    GET testing: 12000 (100%)
+  Codes:
+    200: 12000
+
+==============================
+
+-duration: 60
+-arrivalRate: 400
+
+Warning:
+CPU usage of Artillery seems to be very high (pids: 13887)
+
+All virtual users finished
+Summary report @ 20:15:00(-0700) 2020-04-13
+  Scenarios launched:  24000
+  Scenarios completed: 18275
+  Requests completed:  18275
+  Mean response/sec: 200.27
+  Response time (msec):
+    min: 0.6
+    max: 22693.3
+    median: 1.1
+    p95: 5.4
+    p99: 9.4
+  Scenario counts:
+    GET testing: 24000 (100%)
+  Codes:
+    200: 18275
+  Errors:
+    ECONNRESET: 5725
+
+==============================
+
+-duration: 30
+-arrivalRate: 500
+
+Warning:
+CPU usage of Artillery seems to be very high (pids: 13636)
+
+All virtual users finished
+Summary report @ 19:54:59(-0700) 2020-04-13
+  Scenarios launched:  15000
+  Scenarios completed: 15000
+  Requests completed:  15000
+  Mean response/sec: 410.62
+  Response time (msec):
+    min: 1.5
+    max: 918.3
+    median: 4.8
+    p95: 9.9
+    p99: 24.2
+  Scenario counts:
+    GET testing: 15000 (100%)
+  Codes:
+    200: 15000
+
+==============================
+
+-duration: 60
+-arrivalRate: 500
+
+Warning: High CPU usage warning (pids: 13636).
+See https://artillery.io/docs/faq/#high-cpu-warnings for details.
+
+All virtual users finished
+Summary report @ 19:58:54(-0700) 2020-04-13
+  Scenarios launched:  30000
+  Scenarios completed: 28197
+  Requests completed:  28197
+  Mean response/sec: 360.62
+  Response time (msec):
+    min: 0.8
+    max: 25801.3
+    median: 4.3
+    p95: 15675
+    p99: 15980.6
+  Scenario counts:
+    GET testing: 30000 (100%)
+  Codes:
+    200: 28197
+  Errors:
+    ECONNRESET: 1803
+
+
+
+
+
+
+
+==============================  Original Tests  ==============================
+
+ashby@Ashbys-MacBook-Pro Ashby-service-bookings-bar % npm run stress
+
+ashby@Ashbys-MacBook-Pro Ashby-service-bookings-bar % npm run stress
+
+> bookings-service@1.0.0 stress /Users/ashby/Hack Reactor/SDC/Ashby-service-bookings-bar
+> artillery run stress.yml
+
+Started phase 0 (1 per second), duration: 10s @ 14:55:03(-0700) 2020-04-13
+Report @ 14:55:13(-0700) 2020-04-13
+Elapsed time: 10 seconds
+  Scenarios launched:  9
+  Scenarios completed: 9
+  Requests completed:  9
+  Mean response/sec: 1
+  Response time (msec):
+    min: 6.4
+    max: 20.6
+    median: 10.5
+    p95: 20.6
+    p99: 20.6
+  Codes:
+    200: 9
+
+Started phase 1 (10 per second), duration: 10s @ 14:55:13(-0700) 2020-04-13
+Report @ 14:55:23(-0700) 2020-04-13
+Elapsed time: 20 seconds
+  Scenarios launched:  100
+  Scenarios completed: 100
+  Requests completed:  100
+  Mean response/sec: 10.01
+  Response time (msec):
+    min: 5.3
+    max: 14.5
+    median: 8.2
+    p95: 11.9
+    p99: 14
+  Codes:
+    200: 100
+
+Started phase 2 (100 per second), duration: 10s @ 14:55:23(-0700) 2020-04-13
+Report @ 14:55:33(-0700) 2020-04-13
+Elapsed time: 30 seconds
+  Scenarios launched:  1000
+  Scenarios completed: 999
+  Requests completed:  999
+  Mean response/sec: 99.9
+  Response time (msec):
+    min: 2.4
+    max: 35.4
+    median: 4.8
+    p95: 8.6
+    p99: 13.5
+  Codes:
+    200: 998
+    404: 1
+
+Started phase 3 (1,000 per second), duration: 10s @ 14:55:33(-0700) 2020-04-13
+Report @ 14:55:43(-0700) 2020-04-13
+Elapsed time: 40 seconds
+  Scenarios launched:  5688
+  Scenarios completed: 3696
+  Requests completed:  3696
+  Mean response/sec: 568.6
+  Response time (msec):
+    min: 8.6
+    max: 7122.4
+    median: 1779.7
+    p95: 4251.6
+    p99: 4578
+  Codes:
+    200: 2241
+    404: 1455
+
+Warning:
+CPU usage of Artillery seems to be very high (pids: 8232)
+which may severely affect its performance.
+See https://artillery.io/docs/faq/#high-cpu-warnings for details.
+
+Report @ 14:55:53(-0700) 2020-04-13
+Elapsed time: 50 seconds
+  Scenarios launched:  4313
+  Scenarios completed: 4022
+  Requests completed:  4022
+  Mean response/sec: 432.03
+  Response time (msec):
+    min: 2617.2
+    max: 12556.8
+    median: 4510.1
+    p95: 8143.2
+    p99: 8261.3
+  Codes:
+    200: 2246
+    404: 1776
+
+Report @ 14:55:56(-0700) 2020-04-13
+Elapsed time: 53 seconds
+  Scenarios launched:  0
+  Scenarios completed: 2284
+  Requests completed:  2284
+  Mean response/sec: NaN
+  Response time (msec):
+    min: 2956.3
+    max: 13815.3
+    median: 5389.6
+    p95: 7954.3
+    p99: 8005.2
+  Codes:
+    200: 682
+    404: 1602
+
+All virtual users finished
+Summary report @ 14:55:56(-0700) 2020-04-13
+  Scenarios launched:  11110
+  Scenarios completed: 11110
+  Requests completed:  11110
+  Mean response/sec: 212.06
+  Response time (msec):
+    min: 2.4
+    max: 13815.3
+    median: 3410.9
+    p95: 7987.9
+    p99: 8212
+  Scenario counts:
+    POST testing: 5385 (48.47%)
+    GET testing: 5725 (51.53%)
+  Codes:
+    200: 6276
+    404: 4834
+

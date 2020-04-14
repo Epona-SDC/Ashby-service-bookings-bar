@@ -3,6 +3,7 @@ require('newrelic');
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+// const morgan = require("morgan");
 const {
   getOneJustRental,
   getOneRentalAndDates,
@@ -12,6 +13,7 @@ const {
 var app = express();
 
 app.use(cors());
+// app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, "../public")));
 
 app.use(express.json());
@@ -28,6 +30,7 @@ app.get("/api/rentals", (req, res) => {
       }
     })
     .catch(err => {
+      console.error(err);
       res.status(400).send(err);
     });
 });
@@ -40,10 +43,11 @@ app.delete("/api/rentals", (req, res) => {
 app.post("/api/rentals", (req, res) => {
   const newRental = req.body;
   makeNewRental(newRental)
-    .then(() => {
+    .then((result) => {
       res.status(200).send();
     })
     .catch((err) => {
+      console.error(err);
       res.status(404).send(err);
     })
 });

@@ -270,10 +270,28 @@ const generateRandomDatesList = () => {
   return dates;
 }
 
-const generateNewRentalWithDates = () => {
+const generateNewRentalWithDates = (context, events, done) => {
   const rental = generateRental();
-  rental.availability = generateRandomDatesList();
-  return rental;
+
+  context.vars['price'] = rental.price;
+  context.vars['max_guests'] = rental.maxGuests;
+
+  const reviews = {};
+  reviews.numReviews = rental.numReviews;
+  reviews.avgStars = rental.avgStars;
+
+  context.vars['reviews'] = reviews;
+
+  const fees = {};
+  fees.cleaning_fee = rental.cleaningFee;
+  fees.service_fee = rental.serviceFee;
+  fees.occupancy_fee = rental.occupancyFee;
+
+  context.vars['fees'] = fees;
+
+  context.vars['availability'] = generateRandomDatesList();
+
+  return done();
 }
 
 const randomRentalId = (context, events, done) => {
@@ -283,9 +301,6 @@ const randomRentalId = (context, events, done) => {
   context.vars['id'] = highId;
   return done();
 }
-
- // generate number of reviews from 3-20
- const numReviews = Math.floor(Math.random() * 18) + 3;
 
 // *************************  exports  *************************
 

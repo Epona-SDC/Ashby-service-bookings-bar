@@ -5,6 +5,8 @@ import styles from "./BookingBar.css";
 import Calendar from "../Calendar/Calendar.jsx";
 import GuestBar from "../GuestBar/GuestBar.jsx";
 
+const hostPath = 'http://localhost:3003'
+
 class BookingBar extends Component {
   constructor(props) {
     super(props);
@@ -175,7 +177,7 @@ class BookingBar extends Component {
   componentDidMount() {
     const url = window.location.href;
     const queryString = url.slice(url.indexOf("?"));
-    axios.get(`http://3.21.231.164:3003/api/rentals/${queryString}`)
+    axios.get(`${hostPath}/api/rentals/${queryString}`)
       .then(res => {
         const data = res.data;
         this.setState({
@@ -227,7 +229,7 @@ class BookingBar extends Component {
         <div className={styles.wrapper}>
           <h1 className={styles.price}>${price} <span className={styles.perNight}>per night</span></h1>
           <p className={styles.reviews}>
-            <img src="http://3.21.231.164:3003/img/star.svg" alt="star" className={styles.star}></img>
+            <img src={`${hostPath}/img/star.svg`} alt="star" className={styles.star}></img>
             <span className={styles.avgStars}><b> {reviews.avgStars} </b></span>
             <span className={styles.numReviews}>({reviews.numReviews} reviews)</span>
           </p>
@@ -237,7 +239,7 @@ class BookingBar extends Component {
               <div className={styles.startDate}>
                 <div className={`${styles.startDateText} ${highlightStartDateStyle}`} onClick={this.handleCalendarPopup} id="startDate">03/20/2020</div>
               </div>
-              <img className={styles.arrow} src="http://3.21.231.164:3003/img/arrow.svg" alt="arrow"></img>
+              <img className={styles.arrow} src={`${hostPath}/img/arrow.svg`} alt="arrow"></img>
               <div className={styles.endDate}>
                 <div className={`${styles.endDateText} ${highlightEndDateStyle}`} onClick={this.handleCalendarPopup} id="endDate">03/27/2020</div>
               </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styles from "./Calendar.css";
 
+const hostPath = 'http://localhost:3003'
+
 const DateToMonthString = (monthIndex) => {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   return months[monthIndex];
@@ -71,9 +73,9 @@ class Calendar extends Component {
 
     const daysAvailable = [];
     availability.forEach(day => {
-      const temp = day.split("/");
-      if (parseInt(temp[0]) === currentMonth + 1) {
-        daysAvailable.push(temp[1]);
+      const temp = day.split("-");
+      if (parseInt(temp[1]) === currentMonth + 1) {
+        daysAvailable.push(temp[2]);
       }
     });
 
@@ -82,13 +84,13 @@ class Calendar extends Component {
         <div className={styles.grid}>
           <div className={styles.header}>
             <div className={styles.leftArrowContainer} onClick={this.changeMonth} id="left">
-              <img className={styles.leftArrow} src="http://3.21.231.164:3003/img/arrow.svg" alt="arrow"></img>
+              <img className={styles.leftArrow} src={`${hostPath}/img/arrow.svg`} alt="arrow"></img>
             </div>
             <div className={styles.date}>
               {`${currentMonthString} ${currentYear}`}
             </div>
             <div className={styles.rightArrowContainer} onClick={this.changeMonth} id="right">
-              <img className={styles.rightArrow} src="http://3.21.231.164:3003/img/arrow.svg" alt="arrow"></img>
+              <img className={styles.rightArrow} src={`${hostPath}/img/arrow.svg`} alt="arrow"></img>
             </div>
           </div>
           {daysOfWeek.map(dayOfWeek =>

@@ -251,11 +251,9 @@ const makeNewRental = (rentalInfo) => {
     })
     .then((dateIdList) => {
       let newRows = extractDateIds(dateIdList);
-      console.log('before', newRows);
       for (var i = 0; i < newRows.length; i += 1) {
         newRows[i] = { rentalId: rentalInfo.id, dateId: newRows[i] };
       }
-      console.log('after', newRows);
       return RentalDate.bulkCreate(newRows);
     })
     .catch((err) => {

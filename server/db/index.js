@@ -5,7 +5,8 @@ const dbName = 'Availability';
 
 const dbConnection = new Sequelize(dbName, login.user, login.password, {
   host: login.host,
-  dialect: `${login.dialect}`
+  dialect: `${login.dialect}`,
+  logging: false,
 });
 
 // dbConnection.authenticate()
