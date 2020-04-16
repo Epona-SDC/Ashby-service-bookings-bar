@@ -19,10 +19,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
-    "cassandra-driver": "^4.5.0",
     "circular-std": "^1.0.3",
     "cors": "^2.8.5",
-    "mongoose": "^5.9.4",
     "morgan": "^1.10.0",
     "newrelic": "^6.5.0",
     "pg": "^8.0.0",
