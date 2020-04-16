@@ -322,7 +322,6 @@ exports.randomRentalId = randomRentalId;
 // exports.generateOneSetDateIds = generateOneSetDateIds;
 
 
-
 // exports.generateRentalCSVHeaderCassandra = generateRentalCSVHeaderCassandra;
 // exports.generateCSVDatesCassandra = generateCSVDatesCassandra;
 // exports.generateRentalCSVLineCassandra = generateRentalCSVLineCassandra;

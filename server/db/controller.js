@@ -1,8 +1,6 @@
 const { Rental, UpcomingDate, RentalDate } = require('./models.js');
 const { Op } = require("sequelize");
 
-// const START_DAY = 1585724400000;
-// const LAST_DAY = 1593500400000;
 const START_DAY = new Date('4/1/2020');
 const LAST_DAY = new Date('6/30/2020');
 
