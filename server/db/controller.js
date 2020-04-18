@@ -223,6 +223,7 @@ const getOneRentalAndDates = (id) => {
 }
 
 const makeNewRental = (rentalInfo) => {
+  let newRentalId;
   return new Promise((resolve, reject) => {
     const dataCheck = validateFullData(rentalInfo);
     if (!dataCheck.isValid) {
@@ -232,14 +233,10 @@ const makeNewRental = (rentalInfo) => {
     }
   })
     .then((rentalInfo) => {
-      return Rental.max('id');
-    })
-    .then((maxId) => {
-      maxId += 1;
-      rentalInfo.id = maxId;
       return Rental.create(rentalInfo);
     })
     .then((result) => {
+      id = result.dataValues.id;
       return UpcomingDate.findAll({
         atributes: ['id'],
         where: {

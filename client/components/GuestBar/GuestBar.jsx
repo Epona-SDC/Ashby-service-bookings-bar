@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./GuestBar.css";
 
-const hostPath = 'http://localhost:3003'
+// const hostPath = 'http://localhost:3003'
+const hostPath = '52.15.41.113:3003';
 
 class GuestBar extends Component {
   constructor(props) {

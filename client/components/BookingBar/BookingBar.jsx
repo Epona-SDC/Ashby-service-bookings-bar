@@ -5,7 +5,8 @@ import styles from "./BookingBar.css";
 import Calendar from "../Calendar/Calendar.jsx";
 import GuestBar from "../GuestBar/GuestBar.jsx";
 
-const hostPath = 'http://localhost:3003'
+// const hostPath = 'http://localhost:3003'
+const hostPath = 'http://52.15.41.113:3003';
 
 class BookingBar extends Component {
   constructor(props) {
@@ -177,7 +178,7 @@ class BookingBar extends Component {
   componentDidMount() {
     const url = window.location.href;
     const queryString = url.slice(url.indexOf("?"));
-    axios.get(`${hostPath}/api/rentals/${queryString}`)
+    axios.get(`/api/rentals/${queryString}`)
       .then(res => {
         const data = res.data;
         this.setState({

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styles from "./Calendar.css";
 
-const hostPath = 'http://localhost:3003'
+// const hostPath = 'http://localhost:3003'
+const hostPath = '52.15.41.113:3003';
 
 const DateToMonthString = (monthIndex) => {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

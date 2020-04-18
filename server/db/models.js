@@ -4,6 +4,7 @@ const db = require('./index.js');
 const Rental = db.connection.define('rental', {
   id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
   },
   price: DataTypes.REAL,
